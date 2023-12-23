@@ -1,0 +1,27 @@
+{
+	"id": "6bc940be-3fb4-4c24-ab22-3f8d93e595dd",
+	"name": "DevelopTrello",
+	"values": [
+		{
+			"key": "ApiKey",
+			"value": "a74a9081d36f68297f7f6dc959935c40",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "TrelloToken",
+			"value": "ATTA710983d8cc3002b9871181113ed06966da75c305b520aaa61eb04e1361447e61AB5AD566",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "url",
+			"value": "https://api.trello.com",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-12-23T22:44:55.232Z",
+	"_postman_exported_using": "Postman/10.21.9"
+}
