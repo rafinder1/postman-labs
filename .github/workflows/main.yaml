@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  run-tests-calculator:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Tests
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Run tests
+        run: newman run trello/test_collection.json -e test_environment.json
