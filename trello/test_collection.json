@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "489a7c3b-de49-42fd-8b31-73c65b02bfcc",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31950139"
+	},
+	"item": [
+		{
+			"name": "Create board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let ResBody;\r",
+							"\r",
+							"pm.test(\"Verify created board: by status code\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"\r",
+							"    // Save board ID as collection Variables\r",
+							"    ResBody = pm.response.json();\r",
+							"    pm.collectionVariables.set(\"BoardId\", ResBody.id);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify created board: by board name\", function() {\r",
+							"    pm.expect(ResBody.name).to.eql(pm.collectionVariables.get(\"BoardName\"))\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/boards/?name={{BoardName}}&key={{ApiKey}}&token={{TrelloToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{BoardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get board list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/members/me/boards?key={{ApiKey}}&token={{TrelloToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"members",
+						"me",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create list on board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const ListId = pm.response.json().id\r",
+							"pm.collectionVariables.set(\"ListId\", ListId)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/boards/{{BoardId}}/lists?key={{ApiKey}}&token={{TrelloToken}}&name={{ListToDo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{BoardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{ListToDo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get lists on board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/boards/{{BoardId}}/lists?key={{ApiKey}}&token={{TrelloToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{BoardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create card on list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const CardId = pm.response.json().id\r",
+							"pm.collectionVariables.set(\"CardId\", CardId)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/cards?idList={{ListId}}&key={{ApiKey}}&token={{TrelloToken}}&name=Login system doesn't work",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{ListId}}"
+						},
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						},
+						{
+							"key": "name",
+							"value": "Login system doesn't work"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cards on board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/boards/{{BoardId}}/cards?key={{ApiKey}}&token={{TrelloToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{BoardId}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update desc card",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/cards/{{CardId}}?key={{ApiKey}}&token={{TrelloToken}}&desc=Added corecct data, but system doesn't work",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{CardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						},
+						{
+							"key": "desc",
+							"value": "Added corecct data, but system doesn't work"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete board",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/1/boards/{{BoardId}}?key={{ApiKey}}&token={{TrelloToken}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{BoardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{ApiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{TrelloToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BoardName",
+			"value": "first_board",
+			"type": "string"
+		},
+		{
+			"key": "BoardId",
+			"value": ""
+		},
+		{
+			"key": "ListToDo",
+			"value": "ToDo",
+			"type": "string"
+		},
+		{
+			"key": "ListId",
+			"value": ""
+		},
+		{
+			"key": "CardId",
+			"value": ""
+		}
+	]
+}
