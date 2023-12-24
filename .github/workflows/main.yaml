@@ -7,15 +7,19 @@ on:
     branches:
       - master
 jobs:
-  run-tests-calculator:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-
-    name: Tests
-    runs-on: ${{ matrix.os }}
-
+  run-tests:
+    runs-on: ubuntu-latest
+    
     steps:
-      - name: Run tests
+      - uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/checkoy@v3
+        with:
+          node-version : '17.x'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run collection
         run: newman run trello/test_collection.json -e test_environment.json
